@@ -17,9 +17,13 @@ public class TournamentSchedulePage extends JFrame {
         try (Connection c = DBConnection.getConnection(); ResultSet rs = c.createStatement().executeQuery("SELECT * FROM tournament ORDER BY date")) {
             while (rs.next()) mod.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)});
         } catch (Exception e) {}
-        JPanel bp = new JPanel(new FlowLayout()); bp.setBackground(pri);
-        JButton bb = new JButton("Back"); bb.setFont(f); bb.setBackground(Color.decode("#E74C3C")); bb.setForeground(txt);
-        bb.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); MainPortal portal = new MainPortal(); portal.setVisible(true); } });
-        bp.add(bb); m.add(bp, BorderLayout.SOUTH); add(m);
+        JPanel buttonPanel = new JPanel(new FlowLayout()); buttonPanel.setBackground(pri);
+        JButton backButton = new JButton("Back"); backButton.setFont(f); backButton.setBackground(Color.decode("#E74C3C")); backButton.setForeground(txt);
+        backButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); MainPortal portal = new MainPortal(); portal.setVisible(true); } });
+        buttonPanel.add(backButton); m.add(buttonPanel, BorderLayout.SOUTH); 
+        
+        add(m);
+
     }
+
 }

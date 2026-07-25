@@ -27,6 +27,10 @@ public class RemovePlayer extends JFrame {
         });
         JButton backButton = new JButton("Back"); backButton.setFont(regularFont); backButton.setBackground(Color.decode("#E74C3C")); backButton.setForeground(textColor);
         backButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); MainPortal portal = new MainPortal(); portal.setVisible(true); } });
-        buttonPanel.add(removeButton); buttonPanel.add(backButton); mainPanel.add(buttonPanel, BorderLayout.SOUTH); add(mainPanel);
-    }
-}
+        buttonPanel.add(removeButton); buttonPanel.add(backButton); mainPanel.add(buttonPanel, BorderLayout.SOUTH); 
+        
+        add(mainPanel);
+
+    }   // <-- Constructor close
+
+}       // <-- Class close

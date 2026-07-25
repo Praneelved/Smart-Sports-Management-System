@@ -37,8 +37,11 @@ public class PointsTablePage extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout()); buttonPanel.setBackground(primaryColor);
         JButton backButton = new JButton("Back"); backButton.setFont(regularFont); backButton.setBackground(Color.decode("#E74C3C")); backButton.setForeground(textColor);
         backButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); MainPortal portal = new MainPortal(); portal.setVisible(true); } });
-        buttonPanel.add(backButton); bottomWrapper.add(buttonPanel, BorderLayout.SOUTH); mainPanel.add(bottomWrapper, BorderLayout.SOUTH); add(mainPanel);
-    }
+        buttonPanel.add(backButton); bottomWrapper.add(buttonPanel, BorderLayout.SOUTH); mainPanel.add(bottomWrapper, BorderLayout.SOUTH); 
+        
+        add(mainPanel);
+
+    }   // <-- Constructor close
     public void load() {
         tableModel.setRowCount(0);
         try (Connection c = DBConnection.getConnection(); ResultSet rs = c.createStatement().executeQuery("SELECT * FROM points_table ORDER BY points DESC")) {

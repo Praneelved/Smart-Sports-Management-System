@@ -38,6 +38,10 @@ public class MainPortal extends JFrame {
         
         buttonPanel.add(registerButton); buttonPanel.add(viewButton); buttonPanel.add(findButton); buttonPanel.add(removeButton); 
         buttonPanel.add(tournamentButton); buttonPanel.add(sdgButton); buttonPanel.add(logoutButton);
-        mainPanel.add(buttonPanel, BorderLayout.CENTER); add(mainPanel);
-    }
-}
+        mainPanel.add(buttonPanel, BorderLayout.CENTER);
+        
+        add(mainPanel);
+
+    }   // <-- Constructor close
+
+}       // <-- Class close
