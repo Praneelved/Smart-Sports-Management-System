@@ -1,98 +1,29 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 public class RemovePlayer extends JFrame {
-    
-    JTextField idField;
-    JButton removeButton;
-    JButton backButton;
-
     public RemovePlayer() {
-        setTitle("Remove Player");
-        setSize(400, 200);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        Color primaryColor = Color.decode("#2C3E50");
-        Color removeBtnColor = Color.decode("#C0392B");
-        Color backBtnColor = Color.decode("#E74C3C");
-        Color textColor = Color.WHITE;
-        Font font = new Font("Segoe UI", Font.PLAIN, 15);
-        Font titleFont = new Font("Segoe UI", Font.BOLD, 18);
-
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(primaryColor);
-
-        JLabel titleLabel = new JLabel("REMOVE PLAYER", JLabel.CENTER);
-        titleLabel.setFont(titleFont);
-        titleLabel.setForeground(textColor);
-        titleLabel.setBorder(new EmptyBorder(15, 10, 15, 10));
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
-
-        JPanel centerPanel = new JPanel(new FlowLayout());
-        centerPanel.setBackground(primaryColor);
-        
-        JLabel idLabel = new JLabel("Player ID:");
-        idLabel.setForeground(textColor);
-        idLabel.setFont(font);
-        
-        idField = new JTextField(15);
-        idField.setFont(font);
-        
-        centerPanel.add(idLabel);
-        centerPanel.add(idField);
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
-
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.setBackground(primaryColor);
-
-        removeButton = new JButton("Remove");
-        removeButton.setFont(font);
-        removeButton.setBackground(removeBtnColor);
-        removeButton.setForeground(textColor);
-        removeButton.setFocusPainted(false);
-        
-        removeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    Connection con = DBConnection.getConnection();
-                    Statement st = con.createStatement();
-                    int res = st.executeUpdate("DELETE FROM players WHERE id=" + idField.getText());
-                    if (res > 0) {
-                        JOptionPane.showMessageDialog(null, "Player removed successfully.");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Player not found.");
-                    }
-                    st.close();
-                    con.close();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Invalid Input");
-                }
-            }
+        setTitle("Remove Player"); setSize(400, 200); setLocationRelativeTo(null); setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Color pri = Color.decode("#2C3E50"), txt = Color.WHITE; Font f = new Font("Segoe UI", Font.PLAIN, 15);
+        JPanel m = new JPanel(new BorderLayout()); m.setBackground(pri);
+        JLabel tl = new JLabel("REMOVE PLAYER", JLabel.CENTER); tl.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        tl.setForeground(txt); tl.setBorder(new EmptyBorder(15,10,15,10)); m.add(tl, BorderLayout.NORTH);
+        JPanel cp = new JPanel(new FlowLayout()); cp.setBackground(pri);
+        JLabel il = new JLabel("Player ID:"); il.setForeground(txt); il.setFont(f);
+        JTextField idf = new JTextField(15); idf.setFont(f);
+        cp.add(il); cp.add(idf); m.add(cp, BorderLayout.CENTER);
+        JPanel bp = new JPanel(new FlowLayout()); bp.setBackground(pri);
+        JButton rb = new JButton("Remove"); rb.setFont(f); rb.setBackground(Color.decode("#C0392B")); rb.setForeground(txt);
+        rb.addActionListener(e -> {
+            try (Connection c = DBConnection.getConnection(); Statement st = c.createStatement()) {
+                if (st.executeUpdate("DELETE FROM players WHERE id=" + idf.getText()) > 0)
+                    JOptionPane.showMessageDialog(null, "Removed successfully.");
+                else JOptionPane.showMessageDialog(null, "Not found.");
+            } catch (Exception ex) { JOptionPane.showMessageDialog(null, "Error"); }
         });
-
-        backButton = new JButton("Back");
-        backButton.setFont(font);
-        backButton.setBackground(backBtnColor);
-        backButton.setForeground(textColor);
-        backButton.setFocusPainted(false);
-        
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                MainPortal page = new MainPortal();
-                page.setVisible(true);
-            }
-        });
-
-        buttonPanel.add(removeButton);
-        buttonPanel.add(backButton);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        add(mainPanel);
+        JButton bb = new JButton("Back"); bb.setFont(f); bb.setBackground(Color.decode("#E74C3C")); bb.setForeground(txt);
+        bb.addActionListener(e -> { dispose(); new MainPortal().setVisible(true); });
+        bp.add(rb); bp.add(bb); m.add(bp, BorderLayout.SOUTH); add(m);
     }
 }

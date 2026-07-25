@@ -1,66 +1,19 @@
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 public class SDGPage extends JFrame {
-    
-    JButton backButton;
-    
     public SDGPage() {
-        setTitle("Sustainable Development Goals");
-        setSize(600, 400);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        Color primaryColor = Color.decode("#2C3E50");
-        Color backBtnColor = Color.decode("#E74C3C");
-        Color textColor = Color.WHITE;
-        Font font = new Font("Segoe UI", Font.PLAIN, 15);
-        Font titleFont = new Font("Segoe UI", Font.BOLD, 18);
-
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(primaryColor);
-
-        JLabel titleLabel = new JLabel("SUSTAINABLE DEVELOPMENT GOALS", JLabel.CENTER);
-        titleLabel.setFont(titleFont);
-        titleLabel.setForeground(textColor);
-        titleLabel.setBorder(new EmptyBorder(15, 10, 15, 10));
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
-
-        String text = "\nSDG 3: Good Health and Well-being\nSports improve physical and mental health among students, promoting healthy lifestyles.\n\nSDG 4: Quality Education\nSports develop leadership, teamwork, and discipline, supporting holistic education.\n\nOur Sports Management System promotes SDG 3 by encouraging student participation in sports and SDG 4 by fostering crucial soft skills.";
-        JTextArea textArea = new JTextArea(text);
-        textArea.setEditable(false);
-        textArea.setBackground(primaryColor);
-        textArea.setForeground(textColor);
-        textArea.setFont(font);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setMargin(new Insets(10, 20, 10, 20));
-        
-        mainPanel.add(textArea, BorderLayout.CENTER);
-
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.setBackground(primaryColor);
-
-        backButton = new JButton("Back");
-        backButton.setFont(font);
-        backButton.setBackground(backBtnColor);
-        backButton.setForeground(textColor);
-        backButton.setFocusPainted(false);
-        
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                MainPortal page = new MainPortal();
-                page.setVisible(true);
-            }
-        });
-
-        buttonPanel.add(backButton);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        add(mainPanel);
+        setTitle("Sustainable Development Goals"); setSize(600, 400); setLocationRelativeTo(null); setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Color pri = Color.decode("#2C3E50"), txt = Color.WHITE; Font f = new Font("Segoe UI", Font.PLAIN, 15);
+        JPanel m = new JPanel(new BorderLayout()); m.setBackground(pri);
+        JLabel tl = new JLabel("SUSTAINABLE DEVELOPMENT GOALS", JLabel.CENTER); tl.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        tl.setForeground(txt); tl.setBorder(new EmptyBorder(15,10,15,10)); m.add(tl, BorderLayout.NORTH);
+        String text = "\nSDG 3: Good Health and Well-being\nSports improve physical and mental health among students.\n\nSDG 4: Quality Education\nSports develop leadership, teamwork, and discipline.\n\nOur System promotes SDG 3 by encouraging participation and SDG 4 by fostering soft skills.";
+        JTextArea ta = new JTextArea(text); ta.setEditable(false); ta.setBackground(pri); ta.setForeground(txt); ta.setFont(f);
+        ta.setLineWrap(true); ta.setWrapStyleWord(true); ta.setMargin(new Insets(10,20,10,20)); m.add(ta, BorderLayout.CENTER);
+        JPanel bp = new JPanel(new FlowLayout()); bp.setBackground(pri);
+        JButton bb = new JButton("Back"); bb.setFont(f); bb.setBackground(Color.decode("#E74C3C")); bb.setForeground(txt);
+        bb.addActionListener(e -> { dispose(); new MainPortal().setVisible(true); });
+        bp.add(bb); m.add(bp, BorderLayout.SOUTH); add(m);
     }
 }

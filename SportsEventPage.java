@@ -1,120 +1,33 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 public class SportsEventPage extends JFrame {
-    
-    JTextField idField;
-    JTextField nameField;
-    JTextField dateField;
-    JTextField venueField;
-    
-    JButton registerButton;
-    JButton backButton;
-
+    JTextField[] tf = {new JTextField(), new JTextField(), new JTextField(), new JTextField()};
     public SportsEventPage() {
-        setTitle("Tournament Registration");
-        setSize(450, 400);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        Color primaryColor = Color.decode("#2C3E50");
-        Color buttonColor = Color.decode("#27AE60");
-        Color backBtnColor = Color.decode("#E74C3C");
-        Color textColor = Color.WHITE;
-        Font font = new Font("Segoe UI", Font.PLAIN, 15);
-        Font titleFont = new Font("Segoe UI", Font.BOLD, 18);
-
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(primaryColor);
-
-        JLabel titleLabel = new JLabel("TOURNAMENT REGISTRATION", JLabel.CENTER);
-        titleLabel.setFont(titleFont);
-        titleLabel.setForeground(textColor);
-        titleLabel.setBorder(new EmptyBorder(15, 10, 15, 10));
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
-
-        JPanel formPanel = new JPanel(new GridLayout(4, 2, 10, 15));
-        formPanel.setBackground(primaryColor);
-        formPanel.setBorder(new EmptyBorder(10, 30, 20, 30));
-
-        idField = new JTextField();
-        idField.setFont(font);
-        nameField = new JTextField();
-        nameField.setFont(font);
-        dateField = new JTextField();
-        dateField.setFont(font);
-        venueField = new JTextField();
-        venueField.setFont(font);
-
-        String[] labels = { "Tournament ID:", "Tournament Name:", "Date:", "Venue:" };
-        JComponent[] fields = { idField, nameField, dateField, venueField };
-
-        for (int i = 0; i < 4; i++) {
-            JLabel lbl = new JLabel(labels[i]);
-            lbl.setForeground(textColor);
-            lbl.setFont(font);
-            formPanel.add(lbl);
-            formPanel.add(fields[i]);
+        setTitle("Tournament Registration"); setSize(450, 400); setLocationRelativeTo(null); setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Color pri = Color.decode("#2C3E50"), txt = Color.WHITE; Font f = new Font("Segoe UI", Font.PLAIN, 15);
+        JPanel m = new JPanel(new BorderLayout()); m.setBackground(pri);
+        JLabel tl = new JLabel("TOURNAMENT REGISTRATION", JLabel.CENTER); tl.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        tl.setForeground(txt); tl.setBorder(new EmptyBorder(15,10,15,10)); m.add(tl, BorderLayout.NORTH);
+        JPanel fp = new JPanel(new GridLayout(4, 2, 10, 15)); fp.setBackground(pri); fp.setBorder(new EmptyBorder(10,30,20,30));
+        String[] lbls = {"ID:", "Name:", "Date:", "Venue:"};
+        for(int i=0; i<4; i++) {
+            JLabel l = new JLabel(lbls[i]); l.setForeground(txt); l.setFont(f);
+            tf[i].setFont(f); fp.add(l); fp.add(tf[i]);
         }
-
-        mainPanel.add(formPanel, BorderLayout.CENTER);
-
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.setBackground(primaryColor);
-
-        registerButton = new JButton("Register");
-        registerButton.setFont(font);
-        registerButton.setBackground(buttonColor);
-        registerButton.setForeground(textColor);
-        registerButton.setFocusPainted(false);
-        
-        registerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (nameField.getText().trim().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Tournament Name cannot be empty");
-                    return;
-                }
-                try {
-                    Connection con = DBConnection.getConnection();
-                    PreparedStatement ps = con.prepareStatement("INSERT INTO tournament VALUES (?,?,?,?)");
-                    ps.setInt(1, Integer.parseInt(idField.getText()));
-                    ps.setString(2, nameField.getText());
-                    ps.setString(3, dateField.getText());
-                    ps.setString(4, venueField.getText());
-                    ps.executeUpdate();
-                    
-                    JOptionPane.showMessageDialog(null, "Tournament registered successfully.");
-                    
-                    ps.close();
-                    con.close();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Invalid Data");
-                }
-            }
+        m.add(fp, BorderLayout.CENTER);
+        JPanel bp = new JPanel(new FlowLayout()); bp.setBackground(pri);
+        JButton rb = new JButton("Register"); rb.setFont(f); rb.setBackground(Color.decode("#27AE60")); rb.setForeground(txt);
+        rb.addActionListener(e -> {
+            try (Connection c = DBConnection.getConnection(); PreparedStatement ps = c.prepareStatement("INSERT INTO tournament VALUES (?,?,?,?)")) {
+                ps.setInt(1, Integer.parseInt(tf[0].getText())); ps.setString(2, tf[1].getText());
+                ps.setString(3, tf[2].getText()); ps.setString(4, tf[3].getText());
+                ps.executeUpdate(); JOptionPane.showMessageDialog(null, "Registered successfully!");
+            } catch (Exception ex) { JOptionPane.showMessageDialog(null, "Error"); }
         });
-
-        backButton = new JButton("Back");
-        backButton.setFont(font);
-        backButton.setBackground(backBtnColor);
-        backButton.setForeground(textColor);
-        backButton.setFocusPainted(false);
-        
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                MainPortal page = new MainPortal();
-                page.setVisible(true);
-            }
-        });
-
-        buttonPanel.add(registerButton);
-        buttonPanel.add(backButton);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        add(mainPanel);
+        JButton bb = new JButton("Back"); bb.setFont(f); bb.setBackground(Color.decode("#E74C3C")); bb.setForeground(txt);
+        bb.addActionListener(e -> { dispose(); new MainPortal().setVisible(true); });
+        bp.add(rb); bp.add(bb); m.add(bp, BorderLayout.SOUTH); add(m);
     }
 }
