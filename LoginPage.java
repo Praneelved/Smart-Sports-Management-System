@@ -35,7 +35,14 @@ public class LoginPage extends JFrame {
                 }
             }
         });
-        gbc.gridx=1; gbc.gridy=2; formPanel.add(loginButton, gbc);
-        mainPanel.add(formPanel, BorderLayout.CENTER); add(mainPanel);
-    }
-}
+        gbc.gridx=1;
+        gbc.gridy=2;
+        formPanel.add(loginButton, gbc);
+
+        mainPanel.add(formPanel, BorderLayout.CENTER);
+
+        add(mainPanel);
+
+    }   // <-- Constructor close
+
+}       // <-- Class close
