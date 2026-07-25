@@ -4,26 +4,76 @@ import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.EmptyBorder;
+
 public class TournamentSchedulePage extends JFrame {
     public TournamentSchedulePage() {
-        setTitle("Tournament Schedule"); setSize(600, 400); setLocationRelativeTo(null); setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Color pri = Color.decode("#2C3E50"), txt = Color.WHITE; Font f = new Font("Segoe UI", Font.PLAIN, 15);
-        JPanel m = new JPanel(new BorderLayout()); m.setBackground(pri);
-        JLabel tl = new JLabel("UPCOMING TOURNAMENTS", JLabel.CENTER); tl.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        tl.setForeground(txt); tl.setBorder(new EmptyBorder(15,10,15,10)); m.add(tl, BorderLayout.NORTH);
-        DefaultTableModel mod = new DefaultTableModel(new String[]{"ID", "Tournament Name", "Date", "Venue"}, 0);
-        JTable tb = new JTable(mod); tb.setFont(new Font("Segoe UI", Font.PLAIN, 12)); tb.setRowHeight(25);
-        m.add(new JScrollPane(tb), BorderLayout.CENTER);
-        try (Connection c = DBConnection.getConnection(); ResultSet rs = c.createStatement().executeQuery("SELECT * FROM tournament ORDER BY date")) {
-            while (rs.next()) mod.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)});
-        } catch (Exception e) {}
-        JPanel buttonPanel = new JPanel(new FlowLayout()); buttonPanel.setBackground(pri);
-        JButton backButton = new JButton("Back"); backButton.setFont(f); backButton.setBackground(Color.decode("#E74C3C")); backButton.setForeground(txt);
-        backButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); MainPortal portal = new MainPortal(); portal.setVisible(true); } });
-        buttonPanel.add(backButton); m.add(buttonPanel, BorderLayout.SOUTH); 
+        setTitle("Tournament Schedule");
+        setSize(600, 400);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        add(m);
+        Color primaryColor = Color.decode("#2C3E50");
+        Color textColor = Color.WHITE;
+        Font regularFont = new Font("Segoe UI", Font.PLAIN, 15);
+        
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(primaryColor);
+        
+        JLabel titleLabel = new JLabel("UPCOMING TOURNAMENTS", JLabel.CENTER);
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        titleLabel.setForeground(textColor);
+        titleLabel.setBorder(new EmptyBorder(15,10,15,10));
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        
+        String[] columns = {"ID", "Tournament Name", "Date", "Venue"};
+        DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
+        JTable scheduleTable = new JTable(tableModel);
+        scheduleTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        scheduleTable.setRowHeight(25);
+        
+        mainPanel.add(new JScrollPane(scheduleTable), BorderLayout.CENTER);
+        
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
 
-    }
+        try {
+            con = DBConnection.getConnection();
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM tournament ORDER BY date");
 
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4)
+                };
+                tableModel.addRow(row);
+            }
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Error loading schedule");
+        }
+        
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.setBackground(primaryColor);
+        
+        JButton backButton = new JButton("Back");
+        backButton.setFont(regularFont);
+        backButton.setBackground(Color.decode("#E74C3C"));
+        backButton.setForeground(textColor);
+        
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                MainPortal portal = new MainPortal();
+                portal.setVisible(true);
+            }
+        });
+        
+        buttonPanel.add(backButton);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH); 
+        
+        add(mainPanel);
+    } 
 }
