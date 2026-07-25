@@ -27,12 +27,15 @@ public class LoginPage extends JFrame {
 
         JButton lb = UIUtils.createBtn("LOGIN", UIUtils.BTN_CLR);
         lb.addActionListener(e -> {
-            if ("Praneel".equals(user.getText()) && "Praneel@123".equals(new String(pass.getPassword()))) {
+            if ("Praneel".equals(user.getText().trim()) && "Praneel@123".equals(new String(pass.getPassword()))) {
                 dispose();
                 new MainPortal().setVisible(true);
             } else
                 JOptionPane.showMessageDialog(this, "Invalid Credentials");
         });
+        
+        pass.addActionListener(e -> lb.doClick());
+
         c.gridx = 1; c.gridy = 2;
         fp.add(lb, c);
 
