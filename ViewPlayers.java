@@ -19,7 +19,7 @@ public class ViewPlayers extends JFrame {
         } catch (Exception e) {}
         JPanel buttonPanel = new JPanel(new FlowLayout()); buttonPanel.setBackground(primaryColor);
         JButton backButton = new JButton("Back"); backButton.setFont(regularFont); backButton.setBackground(Color.decode("#E74C3C")); backButton.setForeground(textColor);
-        backButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); new MainPortal().setVisible(true); } });
+        backButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); MainPortal portal = new MainPortal(); portal.setVisible(true); } });
         buttonPanel.add(backButton); mainPanel.add(buttonPanel, BorderLayout.SOUTH); add(mainPanel);
     }
 }

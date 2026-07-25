@@ -24,9 +24,15 @@ public class LoginPage extends JFrame {
         JButton loginButton = new JButton("LOGIN"); loginButton.setFont(regularFont); loginButton.setBackground(Color.decode("#3498DB")); loginButton.setForeground(textColor);
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (usernameField.getText().equals("Praneel") && new String(passwordField.getPassword()).equals("Praneel@123")) {
-                    dispose(); new MainPortal().setVisible(true);
-                } else JOptionPane.showMessageDialog(null, "Invalid Credentials");
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
+                if (username.equals("Praneel") && password.equals("Praneel@123")) {
+                    dispose();
+                    MainPortal portal = new MainPortal();
+                    portal.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid Credentials");
+                }
             }
         });
         gbc.gridx=1; gbc.gridy=2; formPanel.add(loginButton, gbc);

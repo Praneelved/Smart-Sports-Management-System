@@ -19,7 +19,7 @@ public class TournamentSchedulePage extends JFrame {
         } catch (Exception e) {}
         JPanel bp = new JPanel(new FlowLayout()); bp.setBackground(pri);
         JButton bb = new JButton("Back"); bb.setFont(f); bb.setBackground(Color.decode("#E74C3C")); bb.setForeground(txt);
-        bb.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); new MainPortal().setVisible(true); } });
+        bb.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); MainPortal portal = new MainPortal(); portal.setVisible(true); } });
         bp.add(bb); m.add(bp, BorderLayout.SOUTH); add(m);
     }
 }

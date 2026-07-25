@@ -36,7 +36,7 @@ public class PointsTablePage extends JFrame {
         JPanel bottomWrapper = new JPanel(new BorderLayout()); bottomWrapper.setBackground(primaryColor); bottomWrapper.add(inputPanel, BorderLayout.NORTH);
         JPanel buttonPanel = new JPanel(new FlowLayout()); buttonPanel.setBackground(primaryColor);
         JButton backButton = new JButton("Back"); backButton.setFont(regularFont); backButton.setBackground(Color.decode("#E74C3C")); backButton.setForeground(textColor);
-        backButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); new MainPortal().setVisible(true); } });
+        backButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); MainPortal portal = new MainPortal(); portal.setVisible(true); } });
         buttonPanel.add(backButton); bottomWrapper.add(buttonPanel, BorderLayout.SOUTH); mainPanel.add(bottomWrapper, BorderLayout.SOUTH); add(mainPanel);
     }
     public void load() {

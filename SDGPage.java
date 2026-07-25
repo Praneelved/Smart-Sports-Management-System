@@ -14,7 +14,7 @@ public class SDGPage extends JFrame {
         ta.setLineWrap(true); ta.setWrapStyleWord(true); ta.setMargin(new Insets(10,20,10,20)); m.add(ta, BorderLayout.CENTER);
         JPanel bp = new JPanel(new FlowLayout()); bp.setBackground(pri);
         JButton bb = new JButton("Back"); bb.setFont(f); bb.setBackground(Color.decode("#E74C3C")); bb.setForeground(txt);
-        bb.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); new MainPortal().setVisible(true); } });
+        bb.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); MainPortal portal = new MainPortal(); portal.setVisible(true); } });
         bp.add(bb); m.add(bp, BorderLayout.SOUTH); add(m);
     }
 }
