@@ -7,19 +7,19 @@ import javax.swing.border.EmptyBorder;
 public class ViewPlayers extends JFrame {
     public ViewPlayers() {
         setTitle("View Players"); setSize(600, 400); setLocationRelativeTo(null); setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Color pri = Color.decode("#2C3E50"), txt = Color.WHITE; Font f = new Font("Segoe UI", Font.PLAIN, 15);
-        JPanel m = new JPanel(new BorderLayout()); m.setBackground(pri);
-        JLabel tl = new JLabel("ALL PLAYERS", JLabel.CENTER); tl.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        tl.setForeground(txt); tl.setBorder(new EmptyBorder(15,10,15,10)); m.add(tl, BorderLayout.NORTH);
-        DefaultTableModel mod = new DefaultTableModel(new String[]{"ID", "Name", "Sport", "Age", "Dept"}, 0);
-        JTable tb = new JTable(mod); tb.setFont(new Font("Segoe UI", Font.PLAIN, 12)); tb.setRowHeight(25);
-        m.add(new JScrollPane(tb), BorderLayout.CENTER);
+        Color primaryColor = Color.decode("#2C3E50"), textColor = Color.WHITE; Font regularFont = new Font("Segoe UI", Font.PLAIN, 15);
+        JPanel mainPanel = new JPanel(new BorderLayout()); mainPanel.setBackground(primaryColor);
+        JLabel titleLabel = new JLabel("ALL PLAYERS", JLabel.CENTER); titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        titleLabel.setForeground(textColor); titleLabel.setBorder(new EmptyBorder(15,10,15,10)); mainPanel.add(titleLabel, BorderLayout.NORTH);
+        DefaultTableModel tableModel = new DefaultTableModel(new String[]{"ID", "Name", "Sport", "Age", "Dept"}, 0);
+        JTable playersTable = new JTable(tableModel); playersTable.setFont(new Font("Segoe UI", Font.PLAIN, 12)); playersTable.setRowHeight(25);
+        mainPanel.add(new JScrollPane(playersTable), BorderLayout.CENTER);
         try (Connection c = DBConnection.getConnection(); ResultSet rs = c.createStatement().executeQuery("SELECT * FROM players ORDER BY id")) {
-            while (rs.next()) mod.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5)});
+            while (rs.next()) tableModel.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5)});
         } catch (Exception e) {}
-        JPanel bp = new JPanel(new FlowLayout()); bp.setBackground(pri);
-        JButton bb = new JButton("Back"); bb.setFont(f); bb.setBackground(Color.decode("#E74C3C")); bb.setForeground(txt);
-        bb.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); new MainPortal().setVisible(true); } });
-        bp.add(bb); m.add(bp, BorderLayout.SOUTH); add(m);
+        JPanel buttonPanel = new JPanel(new FlowLayout()); buttonPanel.setBackground(primaryColor);
+        JButton backButton = new JButton("Back"); backButton.setFont(regularFont); backButton.setBackground(Color.decode("#E74C3C")); backButton.setForeground(textColor);
+        backButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); new MainPortal().setVisible(true); } });
+        buttonPanel.add(backButton); mainPanel.add(buttonPanel, BorderLayout.SOUTH); add(mainPanel);
     }
 }
