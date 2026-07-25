@@ -13,7 +13,7 @@ public class MainPortal extends JFrame {
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18)); titleLabel.setForeground(textColor); titleLabel.setBorder(new EmptyBorder(15,10,15,10));
         mainPanel.add(titleLabel, BorderLayout.NORTH);
         
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 2, 15, 15)); buttonPanel.setBackground(primaryColor); buttonPanel.setBorder(new EmptyBorder(10,30,30,30));
+        JPanel buttonPanel = new JPanel(new GridLayout(5, 2, 15, 15)); buttonPanel.setBackground(primaryColor); buttonPanel.setBorder(new EmptyBorder(10,30,30,30));
         
         JButton registerButton = new JButton("Register Player"); registerButton.setFont(regularFont); registerButton.setBackground(btnColor); registerButton.setForeground(textColor);
         registerButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); RegisterPlayer page = new RegisterPlayer(); page.setVisible(true); } });
@@ -30,14 +30,24 @@ public class MainPortal extends JFrame {
         JButton tournamentButton = new JButton("Tournament"); tournamentButton.setFont(regularFont); tournamentButton.setBackground(btnColor); tournamentButton.setForeground(textColor);
         tournamentButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); SportsEventPage page = new SportsEventPage(); page.setVisible(true); } });
         
+        JButton tournamentScheduleButton = new JButton("Tournament Schedule"); tournamentScheduleButton.setFont(regularFont); tournamentScheduleButton.setBackground(btnColor); tournamentScheduleButton.setForeground(textColor);
+        tournamentScheduleButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); TournamentSchedulePage page = new TournamentSchedulePage(); page.setVisible(true); } });
+        
         JButton sdgButton = new JButton("SDG Goals"); sdgButton.setFont(regularFont); sdgButton.setBackground(btnColor); sdgButton.setForeground(textColor);
         sdgButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); SDGPage page = new SDGPage(); page.setVisible(true); } });
+        
+        JButton aboutUsButton = new JButton("About Us"); aboutUsButton.setFont(regularFont); aboutUsButton.setBackground(btnColor); aboutUsButton.setForeground(textColor);
+        aboutUsButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); AboutProjectPage page = new AboutProjectPage(); page.setVisible(true); } });
+        
+        JButton pointsTableButton = new JButton("Points Table"); pointsTableButton.setFont(regularFont); pointsTableButton.setBackground(btnColor); pointsTableButton.setForeground(textColor);
+        pointsTableButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); PointsTablePage page = new PointsTablePage(); page.setVisible(true); } });
         
         JButton logoutButton = new JButton("Logout"); logoutButton.setFont(regularFont); logoutButton.setBackground(Color.decode("#E74C3C")); logoutButton.setForeground(textColor);
         logoutButton.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); LoginPage page = new LoginPage(); page.setVisible(true); } });
         
         buttonPanel.add(registerButton); buttonPanel.add(viewButton); buttonPanel.add(findButton); buttonPanel.add(removeButton); 
-        buttonPanel.add(tournamentButton); buttonPanel.add(sdgButton); buttonPanel.add(logoutButton);
+        buttonPanel.add(tournamentButton); buttonPanel.add(tournamentScheduleButton); buttonPanel.add(sdgButton); buttonPanel.add(aboutUsButton); 
+        buttonPanel.add(pointsTableButton); buttonPanel.add(logoutButton);
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
         
         add(mainPanel);
