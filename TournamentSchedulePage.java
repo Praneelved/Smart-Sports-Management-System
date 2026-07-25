@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +19,7 @@ public class TournamentSchedulePage extends JFrame {
         } catch (Exception e) {}
         JPanel bp = new JPanel(new FlowLayout()); bp.setBackground(pri);
         JButton bb = new JButton("Back"); bb.setFont(f); bb.setBackground(Color.decode("#E74C3C")); bb.setForeground(txt);
-        bb.addActionListener(e -> { dispose(); new MainPortal().setVisible(true); });
+        bb.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { dispose(); new MainPortal().setVisible(true); } });
         bp.add(bb); m.add(bp, BorderLayout.SOUTH); add(m);
     }
 }

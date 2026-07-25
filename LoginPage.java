@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 public class LoginPage extends JFrame {
@@ -20,10 +21,12 @@ public class LoginPage extends JFrame {
         c.gridx=0; c.gridy=0; fp.add(ul, c); c.gridx=1; fp.add(u, c);
         c.gridx=0; c.gridy=1; fp.add(pl, c); c.gridx=1; fp.add(p, c);
         JButton b = new JButton("LOGIN"); b.setFont(f); b.setBackground(Color.decode("#3498DB")); b.setForeground(txt);
-        b.addActionListener(e -> {
-            if (u.getText().trim().equals("Praneel") && new String(p.getPassword()).equals("Praneel@123")) {
-                dispose(); new MainPortal().setVisible(true);
-            } else JOptionPane.showMessageDialog(null, "Invalid Credentials");
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (u.getText().trim().equals("Praneel") && new String(p.getPassword()).equals("Praneel@123")) {
+                    dispose(); new MainPortal().setVisible(true);
+                } else JOptionPane.showMessageDialog(null, "Invalid Credentials");
+            }
         });
         c.gridx=1; c.gridy=2; fp.add(b, c);
         m.add(fp, BorderLayout.CENTER); add(m);
